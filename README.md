@@ -1,5 +1,6 @@
 # 2023-12-otus-java-professional
-Repository for homework from the course "Otus. Java Developer Professional" 
+
+Repository for homework from the course "Otus. Java Developer Professional"
 
 Student: Golyshkin Ivan
 
@@ -22,11 +23,10 @@ Student: Golyshkin Ivan
 > - Сделайте pull-request в gitHub
 > - Ссылку на PR отправьте на проверку (личный кабинет, чат с преподавателем).
 
-
 #### Task 1 (hw01-gradle)
 #### [Применение коллекций](https://github.com/VanyaTopchik/2023-12-otus-java-professional/tree/main/hw02-generics)
 Описание/Пошаговая инструкция выполнения домашнего задания:
 
-> -необходимо сделать todo в классах из пакета homework.
-> -все тесты должны проходить.
-> -предполагается использование встроенного в jdk функционала, поэтому реализация методов должна быть буквально из нескольких строк.
+> - Необходимо сделать todo в классах из пакета homework.
+> - Все тесты должны проходить.
+> - Предполагается использование встроенного в jdk функционала, поэтому реализация методов должна быть буквально из нескольких строк.
