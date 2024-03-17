@@ -28,3 +28,4 @@ pluginManagement {
     }
 }
 include("hw07-patterns")
+include("hw08-serialization")
