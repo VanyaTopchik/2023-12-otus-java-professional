@@ -152,3 +152,16 @@ class Demo {
 > - обрабатывает данные из файла;
 > - формирует ответный файл.  
 > Нужно реализовать недостающий функционал
+
+#### Task 9 (hw09-jdbc)
+
+#### [Самодельный ORM](https://github.com/VanyaTopchik/2023-12-otus-java-professional/tree/main/hw09-jdbc)
+
+Описание/Пошаговая инструкция выполнения домашнего задания:
+
+> Работа должна использовать базу данных в docker-контейнере .
+В модуле homework реализуйте классы:
+> - EntityClassMetaData
+> - EntitySQLMetaData
+> - DataTemplateJdbc
+> - Метод main в классе HomeWork должен работать без ошибок.
