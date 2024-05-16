@@ -8,6 +8,7 @@ include("hw06-solid")
 include("hw07-patterns")
 include("hw08-serialization")
 include("hw09-jdbc")
+include("hw15-concurrency")
 
 pluginManagement {
     val jgitver: String by settings
