@@ -4,6 +4,9 @@ import javax.sql.DataSource;
 import org.flywaydb.core.Flyway;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ru.otus.cachehw.HwCache;
+import ru.otus.cachehw.HwListener;
+import ru.otus.cachehw.MyCache;
 import ru.otus.core.repository.executor.DbExecutorImpl;
 import ru.otus.core.sessionmanager.TransactionRunnerJdbc;
 import ru.otus.crm.datasource.DriverManagerDataSource;
@@ -37,8 +40,15 @@ public class HomeWork {
     var dataTemplateClient = new DataTemplateJdbc<>(
         dbExecutor, entitySQLMetaDataClient, entityClassMetaDataClient); // реализация DataTemplate, универсальная
 
-    // Код дальше должен остаться
-    var dbServiceClient = new DbServiceClientImpl(transactionRunner, dataTemplateClient);
+    HwCache<String, Client> clientCache = new MyCache<>();
+    HwListener<String, Client> clientListener = new HwListener<String, Client>() {
+      @Override
+      public void notify(String key, Client value, String action) {
+        log.info("key:{}, value:{}, action: {}", key, value, action);
+      }
+    };
+    clientCache.addListener(clientListener);
+    var dbServiceClient = new DbServiceClientImpl(transactionRunner, dataTemplateClient, clientCache);
     dbServiceClient.saveClient(new Client("dbServiceFirst"));
 
     var clientSecond = dbServiceClient.saveClient(new Client("dbServiceSecond"));
@@ -47,13 +57,19 @@ public class HomeWork {
         .orElseThrow(() -> new RuntimeException("Client not found, id:" + clientSecond.getId()));
     log.info("clientSecondSelected:{}", clientSecondSelected);
 
-    // Сделайте тоже самое с классом Manager (для него надо сделать свою таблицу)
-
     EntityClassMetaData<Manager> entityClassMetaDataManager = new EntityClassMetaDataImpl<>(Manager.class);
     EntitySQLMetaData entitySQLMetaDataManager = new EntitySQLMetaDataImpl<>(entityClassMetaDataManager);
     var dataTemplateManager = new DataTemplateJdbc<>(dbExecutor, entitySQLMetaDataManager, entityClassMetaDataManager);
 
-    var dbServiceManager = new DbServiceManagerImpl(transactionRunner, dataTemplateManager);
+    HwCache<String, Manager> managerCache = new MyCache<>();
+    HwListener<String, Manager> managerListener = new HwListener<String, Manager>() {
+      @Override
+      public void notify(String key, Manager value, String action) {
+        log.info("key:{}, value:{}, action: {}", key, value, action);
+      }
+    };
+    managerCache.addListener(managerListener);
+    var dbServiceManager = new DbServiceManagerImpl(transactionRunner, dataTemplateManager, managerCache);
     dbServiceManager.saveManager(new Manager("ManagerFirst"));
 
     var managerSecond = dbServiceManager.saveManager(new Manager("ManagerSecond"));
