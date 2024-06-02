@@ -10,6 +10,7 @@ include("hw08-serialization")
 include("hw09-jdbc")
 include("hw10-hibernate")
 include("hw11-cache")
+include("hw12-webserver")
 include("hw15-concurrency")
 
 pluginManagement {
