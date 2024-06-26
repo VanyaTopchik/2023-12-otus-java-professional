@@ -1,4 +1,4 @@
-package ru.otus.listener.homework;
+package ru.otus.listener;
 
 import java.util.Optional;
 import ru.otus.model.Message;
