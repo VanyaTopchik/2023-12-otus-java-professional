@@ -6,6 +6,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
@@ -14,7 +16,9 @@ import static org.mockito.Mockito.when;
 import ru.otus.handler.ComplexProcessor;
 import ru.otus.listener.Listener;
 import ru.otus.model.Message;
+import ru.otus.processor.LocalDateTimeProvider;
 import ru.otus.processor.Processor;
+import ru.otus.processor.ProcessorThrowExceptionTime;
 
 class ComplexProcessorTest {
 
@@ -90,6 +94,41 @@ class ComplexProcessorTest {
 
     // then
     verify(listener, times(1)).onUpdated(message);
+  }
+
+  @DisplayName("Тестируем выбрасывание exception при четной/нечетной секундах")
+  @ParameterizedTest
+  @ValueSource(booleans = {true, false})
+  void handleExceptionProcessorTest(boolean isOdenSeconds) {
+    // given
+    var message = new Message.Builder(1L).field11("field11").field12("field12").build();
+
+    var localDateTimeProvider = mock(LocalDateTimeProvider.class);
+    when(localDateTimeProvider.getSeconds()).thenReturn(isOdenSeconds ? 4 : 3);
+
+    var processor1 = new ProcessorThrowExceptionTime(localDateTimeProvider);
+
+    var processor2 = mock(Processor.class);
+    when(processor2.process(message)).thenReturn(message);
+
+    var processors = List.of(processor1, processor2);
+
+    var complexProcessor = new ComplexProcessor(processors, (ex) -> {
+      throw new TestException(ex.getMessage());
+    });
+
+    if (isOdenSeconds) {
+      // when
+      assertThatExceptionOfType(TestException.class).isThrownBy(() -> complexProcessor.handle(message));
+      // then
+      verify(processor2, never()).process(message);
+    } else {
+      // when
+      var result = complexProcessor.handle(message);
+      // then
+      verify(processor2).process(message);
+      assertThat(result).isEqualTo(message);
+    }
   }
 
   private static class TestException extends RuntimeException {
