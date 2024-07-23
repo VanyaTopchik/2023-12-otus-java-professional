@@ -36,6 +36,12 @@ public class Phone {
     this.number = number;
   }
 
+  public Phone(Long id, String number, Client client) {
+    this.id = id;
+    this.number = number;
+    this.client = client;
+  }
+
   @Override
   public Phone clone() {
     return new Phone(this.id, this.number);
