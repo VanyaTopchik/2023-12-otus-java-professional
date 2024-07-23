@@ -6,7 +6,7 @@ import ru.otus.config.AppConfig;
 import ru.otus.services.GameProcessor;
 
 /*
-В классе AppComponentsContainerImpl реализовать обработку, полученной в конструкторе конфигурации,
+В классе AppComponentsContainerImpl реализовать обработку, полученную в конструкторе конфигурации,
 основываясь на разметке аннотациями из пакета appcontainer. Так же необходимо реализовать методы getAppComponent.
 В итоге должно получиться работающее приложение. Менять можно только класс AppComponentsContainerImpl.
 Можно добавлять свои исключения.
