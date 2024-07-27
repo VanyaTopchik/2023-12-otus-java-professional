@@ -235,6 +235,18 @@ class Demo {
 > Дополнительное задание (можно не делать):
 > - В AppComponentsContainerImpl добавить конструктор, который принимает на вход имя пакета, и обрабатывает все имеющиеся там классы-конфигурации (см. зависимости в pom.xml)
 
+#### Task 14 (hw14-springboot)
+
+#### [Веб-приложение на Spring Boot](https://github.com/VanyaTopchik/2023-12-otus-java-professional/tree/main/hw14-springboot)
+
+Описание/Пошаговая инструкция выполнения домашнего задания:
+
+> - Взять за основу ДЗ к вебинару Занятие «Web сервер. ДЗ», но без страницы логина;
+> - Вместо Jetty использовать Spring Boot;
+> - Работу с базой данных реализовать на Spring Data Jdbc;
+> - В качестве движка шаблонов использовать Thymeleaf;
+> - Если Thymeleaf не нравится, используйте чистый HTML и JavaScript. Авторизацию и аутентификацию делать не надо.
+
 #### Task 15 (hw15-concurrency)
 
 #### [Последовательность чисел](https://github.com/VanyaTopchik/2023-12-otus-java-professional/tree/main/hw15-concurrency)

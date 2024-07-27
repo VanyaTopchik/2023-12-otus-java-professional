@@ -12,6 +12,7 @@ include("hw10-hibernate")
 include("hw11-cache")
 include("hw12-webserver")
 include("hw13-di")
+include("hw14-springboot")
 include("hw15-concurrency")
 
 pluginManagement {
