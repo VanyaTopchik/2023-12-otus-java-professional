@@ -22,12 +22,37 @@ public class AppComponentsContainerImpl implements AppComponentsContainer {
     processConfig(initialConfigClass);
   }
 
+  @Override
+  public <C> C getAppComponent(Class<C> componentClass) {
+    List<Object> list = appComponents.stream().filter(component -> component.getClass().equals(componentClass)
+        || componentClass.isAssignableFrom(component.getClass())).toList();
+    if (list.isEmpty()) {
+      throw new RuntimeException(String.format("Not found components by type: '%s'", componentClass.getName()));
+    }
+    if (list.size() > 1) {
+      throw new RuntimeException(String.format("Found few components by type: '%s'", componentClass.getName()));
+    }
+    return (C) list.getFirst();
+  }
+
+  @Override
+  public <C> C getAppComponent(String componentName) {
+    return (C) Optional.ofNullable(appComponentsByName.get(componentName))
+        .orElseThrow(() -> new RuntimeException(String.format("Failed to get component by name:'%s'", componentName)));
+  }
+
   private void processConfig(Class<?> configClass) {
     checkConfigClass(configClass);
     try {
       initContext(configClass);
     } catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
-      throw new RuntimeException("Failed initialize context", e);
+      throw new RuntimeException("Failed to initialize context", e);
+    }
+  }
+
+  private void checkConfigClass(Class<?> configClass) {
+    if (!configClass.isAnnotationPresent(AppComponentsContainerConfig.class)) {
+      throw new IllegalArgumentException(String.format("Given class is not config '%s'", configClass.getName()));
     }
   }
 
@@ -45,7 +70,7 @@ public class AppComponentsContainerImpl implements AppComponentsContainer {
       componentName = method.getName();
     }
     if (appComponentsByName.containsKey(componentName)) {
-      throw new RuntimeException("Component with name '" + componentName + "' already exists");
+      throw new RuntimeException(String.format("Component with name '%s' already exists", componentName));
     }
     Object[] args = Arrays.stream(method.getParameterTypes()).map(this::getAppComponent).toArray();
     Object component;
@@ -58,23 +83,4 @@ public class AppComponentsContainerImpl implements AppComponentsContainer {
     appComponentsByName.put(componentName, component);
   }
 
-  private void checkConfigClass(Class<?> configClass) {
-    if (!configClass.isAnnotationPresent(AppComponentsContainerConfig.class)) {
-      throw new IllegalArgumentException(String.format("Given class is not config %s", configClass.getName()));
-    }
-  }
-
-  @Override
-  public <C> C getAppComponent(Class<C> componentClass) {
-    List<Object> list = appComponents.stream().filter(component -> component.getClass().equals(componentClass)
-        || Arrays.asList(component.getClass().getInterfaces()).contains((componentClass))).toList();
-    if (list.size() > 1) {
-      throw new RuntimeException("Founded few components by type");
-    } else return (C) list.get(0);
-  }
-
-  @Override
-  public <C> C getAppComponent(String componentName) {
-    return (C) Optional.ofNullable(appComponentsByName.get(componentName)).orElseThrow();
-  }
 }
