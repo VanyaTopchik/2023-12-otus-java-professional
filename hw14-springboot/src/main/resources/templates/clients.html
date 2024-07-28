@@ -1,4 +1,5 @@
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Клиенты</title>
 </head>
@@ -45,18 +46,18 @@
 
 <body>
 <h2 class="center">Создать клиента:</h2>
-<form action="/clients" method="post">
+<form th:action="@{/client/save}" th:object="${client}" method="post">
     <label>
         Имя: <br/>
-        <input type="text" name="name"><br/>
+        <input type="text" name="name" th:value="*{name}"><br/>
     </label>
     <label>
         Адрес: <br/>
-        <input type="text" name="street"><br/>
+        <input type="text" name="street" th:value="*{street}"><br/>
     </label>
     <label>
         Телефоны (через запятую): <br/>
-        <input type="text" name="phone_numbers"><br/>
+        <input type="text" name="phones" th:value="*{phones}"><br/>
     </label>
     <br/>
     <input type="submit" value="Создать">
@@ -74,22 +75,12 @@
     <tr></tr>
     </thead>
     <tbody>
-        <#list allClients as client>
-            <tr>
-                <td>${client.id}</td>
-                <td>${client.name}</td>
-                <td><#if client.address??>${client.address.street}<#else>Адрес не указан</#if></td>
-                <td>
-                    <#list client.phones>
-                        <#items as phone>
-                            <div>${phone.number}</div>
-                        </#items>
-                    <#else>
-                        <p>Телефон не указан</p>
-                    </#list>
-                </td>
-             </tr>
-        </#list>
+    <tr th:each="client : ${clients}">
+        <td th:text="${client.id}"></td>
+        <td th:text="${client.name}"></td>
+        <td th:text="${client.address.street}"></td>
+        <td th:text="${client.getPhonesAsString()}"></td>
+    </tr>
     </tbody>
 </table>
 </body>
