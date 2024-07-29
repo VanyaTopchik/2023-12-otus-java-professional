@@ -15,6 +15,7 @@ include("hw13-di")
 include("hw14-springboot")
 include("hw15-concurrency")
 include("hw16-queues")
+include("hw17-grpc")
 
 pluginManagement {
     val jgitver: String by settings
