@@ -24,6 +24,7 @@ dependencies {
     implementation("io.grpc:grpc-protobuf")
     implementation("io.grpc:grpc-stub")
     implementation("com.google.protobuf:protobuf-java")
+    implementation("ch.qos.logback:logback-classic")
     implementation("com.google.errorprone:error_prone_annotations:$errorProneAnnotations")
 
     implementation("org.apache.tomcat:annotations-api:$tomcatAnnotationsApi")
