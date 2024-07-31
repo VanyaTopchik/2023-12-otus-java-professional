@@ -341,3 +341,10 @@ class Demo {
 > 21:44:20.940 [main] INFO ru.otus.numbers.client.NumbersClient - currentValue:61   
 > 21:44:21.114 [grpc-default-executor-0] INFO r.o.n.client.ClientStreamObserver - new value:10  
 > 21:44:21.119 [grpc-default-executor-0] INFO r.o.n.client.ClientStreamObserver - request completed 
+
+#### Final project (project)
+
+#### [Очереди](https://github.com/VanyaTopchik/2023-12-otus-java-professional/tree/main/project)
+
+Описание:
+---

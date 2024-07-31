@@ -8,8 +8,6 @@ repositories {
     mavenCentral()
 }
 
-
-
 dependencies {
     annotationProcessor("org.projectlombok:lombok")
     implementation("org.projectlombok:lombok")
