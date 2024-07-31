@@ -15,6 +15,7 @@ public class GRPCClient {
   private static final int PORT = 8190;
 
   private static long currentValueFromServer = 0;
+  private static final Object lock = new Object();
   private static boolean shouldTakeNumberFromServer = false;
 
   public static void main(String[] args) {
@@ -31,7 +32,9 @@ public class GRPCClient {
     newStub.runSequence(message, new StreamObserver<>() {
       @Override
       public void onNext(SequenceMessage msg) {
-        currentValueFromServer = msg.getCurrentValue();
+        synchronized (lock) {
+          currentValueFromServer = msg.getCurrentValue();
+        }
         shouldTakeNumberFromServer = true;
         logger.info("Number from server:{}", msg.getCurrentValue());
       }
@@ -50,7 +53,9 @@ public class GRPCClient {
     long currentValue = 0;
     for (int i = 0; i < 50; i++) {
       if (shouldTakeNumberFromServer) {
-        currentValue = currentValue + currentValueFromServer + 1L;
+        synchronized (lock) {
+          currentValue = currentValue + currentValueFromServer + 1L;
+        }
         shouldTakeNumberFromServer = false;
       } else {
         currentValue = currentValue + 1L;
