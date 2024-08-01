@@ -358,4 +358,31 @@ class Demo {
 #### [Очереди](https://github.com/VanyaTopchik/2023-12-otus-java-professional/tree/main/project)
 
 Описание:
----
+
+## Запуск
+Поднятие базы данных Postgres:
+```
+cd docker
+docker-compose up
+```
+Запуск приложения Spring Boot:
+```
+gradle bootRun
+```
+## API
+Получение списка вакансий по названию (параметр `title` не обязателен)
+```
+http://localhost:8080/vacancy?title=Грузчик
+```
+Главная страница
+```
+http://localhost:8080
+```
+Страница создания вакансии
+```
+http://localhost:8080/add
+```
+Страница редактирования вакансии
+```
+http://localhost:8080/edit/{vacancy_id}
+```

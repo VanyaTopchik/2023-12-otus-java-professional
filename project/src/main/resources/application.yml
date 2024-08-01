@@ -1,0 +1,27 @@
+## PostgreSQL
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5430/jobSearcher
+    username: dbadmin
+    password: dbadmin
+  flyway:
+    enabled: true
+
+  ## default connection pool
+  hikari:
+    connectionTimeout: 20000
+    maximumPoolSize: 5
+
+
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+logging:
+  level:
+    org:
+      springframework:
+        jdbc:
+          core:
+            JdbcTemplate: debug
+
