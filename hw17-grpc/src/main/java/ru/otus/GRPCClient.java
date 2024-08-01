@@ -2,6 +2,7 @@ package ru.otus;
 
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.stub.StreamObserver;
+import java.util.concurrent.atomic.AtomicLong;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.otus.protobuf.SequenceMessage;
@@ -14,9 +15,7 @@ public class GRPCClient {
   private static final String HOST = "localhost";
   private static final int PORT = 8190;
 
-  private static long currentValueFromServer = 0;
-  private static final Object lock = new Object();
-  private static boolean shouldTakeNumberFromServer = false;
+  private static final AtomicLong currentValueFromServer = new AtomicLong(0);
 
   public static void main(String[] args) {
     var channel = ManagedChannelBuilder.forAddress(HOST, PORT)
@@ -32,10 +31,7 @@ public class GRPCClient {
     newStub.runSequence(message, new StreamObserver<>() {
       @Override
       public void onNext(SequenceMessage msg) {
-        synchronized (lock) {
-          currentValueFromServer = msg.getCurrentValue();
-        }
-        shouldTakeNumberFromServer = true;
+        currentValueFromServer.set(msg.getCurrentValue());
         logger.info("Number from server:{}", msg.getCurrentValue());
       }
 
@@ -52,14 +48,7 @@ public class GRPCClient {
 
     long currentValue = 0;
     for (int i = 0; i < 50; i++) {
-      if (shouldTakeNumberFromServer) {
-        synchronized (lock) {
-          currentValue = currentValue + currentValueFromServer + 1L;
-        }
-        shouldTakeNumberFromServer = false;
-      } else {
-        currentValue = currentValue + 1L;
-      }
+      currentValue = currentValue + currentValueFromServer.getAndSet(0) + 1L;
 
       logger.info("currentValue:{}", currentValue);
 
