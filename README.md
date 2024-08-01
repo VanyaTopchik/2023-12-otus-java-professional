@@ -342,6 +342,17 @@ class Demo {
 > 21:44:21.114 [grpc-default-executor-0] INFO r.o.n.client.ClientStreamObserver - new value:10  
 > 21:44:21.119 [grpc-default-executor-0] INFO r.o.n.client.ClientStreamObserver - request completed 
 
+#### Task 18 (hw18-webflux)
+
+#### [Очереди](https://github.com/VanyaTopchik/2023-12-otus-java-professional/tree/main/hw18-webflux)
+
+Описание/Пошаговая инструкция выполнения домашнего задания:
+
+> В чат из примера к вебинару добавьте специальную комнату: 1408.   
+> В этой комнате нельзя отправлять сообщения.   
+> Однако в нее приходят все сообщения из всех других комнат.   
+> Обратите внимание: при входе в комнату 1408 должны загрузиться все сообщения из всех комнат (по аналогии с типовыми комнатами).
+
 #### Final project (project)
 
 #### [Очереди](https://github.com/VanyaTopchik/2023-12-otus-java-professional/tree/main/project)

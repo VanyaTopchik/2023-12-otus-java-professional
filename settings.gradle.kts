@@ -16,6 +16,7 @@ include("hw14-springboot")
 include("hw15-concurrency")
 include("hw16-queues")
 include("hw17-grpc")
+include("hw18-webflux")
 include("project")
 
 pluginManagement {
@@ -39,3 +40,7 @@ pluginManagement {
         id("com.diffplug.spotless") version spotless
     }
 }
+include("hw18-webflux:client-service")
+findProject(":hw18-webflux:client-service")?.name = "client-service"
+include("hw18-webflux:datastore-service")
+findProject(":hw18-webflux:datastore-service")?.name = "datastore-service"
