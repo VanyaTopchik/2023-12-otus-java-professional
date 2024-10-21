@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Вход Job Searcher</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+</head>
+<body>
+<!-- create navigation bar ( header) -->
+<nav th:fragment="navbar" class="navbar navbar-expand-md bg-dark navbar-dark">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" th:href="@{/}">Job Searcher</a>
+        </div>
+    </div>
+</nav>
+
+<br>
+<br>
+<div class="container align-items-center justify-content-center">
+    <div class="row align-items-center justify-content-center">
+        <div class="col-md-6 col-md-offset-3">
+            <h1 class="text-center">Вход</h1>
+            <form th:action="@{/login}" method="post">
+
+                <div></div>
+                <!-- error message -->
+                <div th:if="${param.error}">
+                    <div class="alert alert-danger">Неверные имя пользователя или пароль.</div>
+                </div>
+
+                <!-- logout message -->
+                <div th:if="${param.logout}">
+                    <div class="alert alert-info">Вы вышли из системы.</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="username">Логин</label>:
+                    <input type="text" class="form-control" id="username" name="username"
+                           placeholder="Введите имя пользователя" autofocus="autofocus">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Пароль</label>: <input type="password" id="password" name="password"
+                                                                 class="form-control" placeholder="Введите пароль"/>
+                </div>
+
+                <div class="form-group">
+                    <div class="row align-items-center justify-content-center">
+                        <div class="col-sm-6 col-sm-offset-3">
+                            <input type="submit" name="login-submit" id="login-submit"
+                                   class="form-control btn btn-primary" value="Войти"/>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="form-group">
+                <span class="row justify-content-center">Новый пользователь?&nbsp;<a href="/" th:href="@{/registration}">Зарегистрироваться</a></span>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
