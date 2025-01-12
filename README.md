@@ -272,7 +272,7 @@ class Demo {
 
 #### Task 17 (hw17-grpc)
 
-#### [Очереди](https://github.com/VanyaTopchik/2023-12-otus-java-professional/tree/main/hw17-grpc)
+#### [grpc](https://github.com/VanyaTopchik/2023-12-otus-java-professional/tree/main/hw17-grpc)
 
 Описание/Пошаговая инструкция выполнения домашнего задания:
 
@@ -344,7 +344,7 @@ class Demo {
 
 #### Task 18 (hw18-webflux)
 
-#### [Очереди](https://github.com/VanyaTopchik/2023-12-otus-java-professional/tree/main/hw18-webflux)
+#### [WebFlux](https://github.com/VanyaTopchik/2023-12-otus-java-professional/tree/main/hw18-webflux)
 
 Описание/Пошаговая инструкция выполнения домашнего задания:
 
@@ -355,7 +355,7 @@ class Demo {
 
 #### Final project (project)
 
-#### [Очереди](https://github.com/VanyaTopchik/2023-12-otus-java-professional/tree/main/project)
+#### [Финальный проект](https://github.com/VanyaTopchik/2023-12-otus-java-professional/tree/main/project)
 
 Описание:
 
